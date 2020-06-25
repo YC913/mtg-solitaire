@@ -13,7 +13,7 @@ const section = document.querySelector('section');
 // jsonでデータ取得
 let url = 'StandardCards.json';
 $.get(url, (data) => {
-    console.log(data.name["苦悶の侍祭"]);
+    console.log(data.foreignData.name["苦悶の侍祭"]);
     console.log(typeof(data));
     // デッキリストの情報を取得
     
