@@ -100,3 +100,11 @@ document.getElementById('shufful-button').onclick = function(){
     library.shufful();
     console.log(library);
 }
+
+// 開始時のライブラリ、手札、サイドボードを定義
+function gameStart(){
+    library = new Library();
+    hands = library.draw(7);
+    sideboard = new SideBord();
+}
+
