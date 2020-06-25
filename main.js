@@ -10,40 +10,43 @@ let standardCards = [];
 let hands = [];
 const section = document.querySelector('section');
 
-// jsonでデータ取得
-let path = 'StandardCards.json';
-$.getJSON(path, function(json){
-    standardCards = json;
-    // デッキリストの情報を取得
+// // jsonでデータ取得
+// let path = 'StandardCards.json';
+// $.getJSON(path, function(json){
+//     standardCards = json;
+//     // デッキリストの情報を取得
     
-    // standardCardsに情報を格納
-});
-let newlines = standardCards.filter(function(item, index){
-    if(item.printing == ["INV", "PRNA", "RNA"]){
-        // console.log(item);
-        return true;
-    }
-});
-console.log(newlines);
+//     // standardCardsに情報を格納
+// });
+// let newlines = standardCards.filter(function(item, index){
+//     if(item.printing == ["INV", "PRNA", "RNA"]){
+//         // console.log(item);
+//         return true;
+//     }
+// });
+// console.log(newlines);
 
-const mtg = require('mtgsdk')
+// Magic: The Gathering SDKを使ってカード情報を取得
+// set, numberで絞り込む
+// 画像は日本語のものを使用する
+// const mtg = require('mtgsdk')
 
-// mtg.card.find(3)
-// .then(result => {
-//     console.log(result.card.name) // "Black Lotus"
-// })
+// // mtg.card.find(3)
+// // .then(result => {
+// //     console.log(result.card.name) // "Black Lotus"
+// // })
 
-// mtg.set.find('AER')
-// .then(result => {
-//     console.log(result.set.name) // "Aether Revolt"
-// })
-mtg.card.where({set : 'RNA'}).then(cards => {
-    console.log(cards[0].foreignNames[4]);
-});
+// // mtg.set.find('AER')
+// // .then(result => {
+// //     console.log(result.set.name) // "Aether Revolt"
+// // })
+// mtg.card.where({set : 'RNA'}).then(cards => {
+//     console.log(cards[0].foreignNames[4]);
+// });
 
-mtg.card.where({set : 'RNA',number : '151'}).then(cards => {
-    console.log(cards);
-});
+// mtg.card.where({set : 'RNA',number : '151'}).then(cards => {
+//     console.log(cards);
+// });
 
 
 // デッキリストを読み込んでライブラリとサイドボードを作成する
