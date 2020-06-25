@@ -14,7 +14,7 @@ const section = document.querySelector('section');
 let url = 'StandardCards.json';
 $.get(url, (data) => {
     for (let i=0; i<3; i++){
-      console.log(data[i]);
+      console.log(data);
     }
 });
 
