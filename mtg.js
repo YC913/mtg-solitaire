@@ -1,7 +1,8 @@
-// ライブラリクラス
+// ライブラリークラス
 class Library{
     constructor(){
         this._library = [...libraryBase];   // libraryBaseをコピー
+        this.shufful();
     }
 
     // 山札をシャッフルするメソッド
@@ -11,18 +12,42 @@ class Library{
 
     // 山札からカードを取り出すメソッド
     draw(num){
-        return this._deck.splice(0, num);
+        return this._library.splice(0, num);
     }
 }
 
 // サイドボードクラス
 class SideBord{
     constructor(){
-        this._sidebord = [...sideBoardBase];    // sideBoardBaseをコピー
+        this._sidebord = [...sideboardBase];    // sideboardBaseをコピー
     }
 
     // サイドボードから手札に加えるメソッド
     putIn2Hand(){
         return 0;
     }
+}
+
+// カード枚数分だけカード要素を複製し、リストに保存する関数
+function shapeList(defaultList){
+    let cardList = []
+    for(let i=0; i < defaultList.length; i++){
+        let cardNum = Number(defaultList[i].split(' ')[0]);
+        let cardData = defaultList[i].split(' ').slice(1,defaultList.length);
+        /*
+            ここでjsonからカード情報を取得して整形する
+            例
+            {
+                'name' : 'アダントの先兵',
+                'set' : 'XLN',
+                'imageUrl' : 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=436348&type=card',
+
+            }
+        */
+        for(let j=0; j < cardNum; j++){
+            // カードを追加
+            cardList.push(cardData);
+        }
+    }
+    return cardList;
 }
