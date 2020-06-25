@@ -11,12 +11,16 @@ let hands = [];
 const section = document.querySelector('section');
 
 // jsonでデータ取得
-let url = 'StandardCards.json';
-$.get(url, (data) => {
+let path = 'StandardCards.json';
+$.getjson(path, (data) => {
     standardCards = data;
-
-    console.log(data.foreignData.name == "苦悶の侍祭");
-    console.log(typeof(data));
+    let newlines = data.filter(function(item, index){
+        if(item.foreignData.name == "苦悶の侍祭"){
+            // console.log(item);
+            return true;
+        }
+    });
+    console.log(newlines);
     // デッキリストの情報を取得
     
     // standardCardsに情報を格納
