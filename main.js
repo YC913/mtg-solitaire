@@ -95,6 +95,7 @@ function addSection(arr, section){
 //     return elem;
 // };
 
-document.getElementById('shufful-button').onclick = function{
+document.getElementById('shufful-button').onclick = function(){
     library.shufful();
+    console.log(library);
 }
