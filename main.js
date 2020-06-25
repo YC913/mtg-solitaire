@@ -1,7 +1,7 @@
 let deckListFile = document.getElementById('decklist');
-let handsArticle = document.getElementById('hands');
-let libraryArticle = document.getElementById('library');
-let sideboardArticle = document.getElementById('sidebord');
+let handsDiv = document.getElementById('hands');
+let libraryDiv = document.getElementById('library');
+let sideboardDiv = document.getElementById('sidebord');
 let library = [];
 let libraryBase = [];
 let sideboard = [];
@@ -49,25 +49,21 @@ deckListFile.addEventListener('change', function(evt){
         hands = library.draw(7);
         sideboard = new SideBord();
 
-        addSection(hands, handsArticle);
-        addSection(library._library, libraryArticle);
-        addSection(sideboard._sidebord, sideboardArticle);
+        addSection(hands, handsDiv);
+        addSection(library._library, libraryDiv);
+        addSection(sideboard._sidebord, sideboardDiv);
     }
     
     
 },false);
 
 
-function addSection(arr, section){
-    let myArticle = document.createElement('article');
+function addCard(arr, container){
     let myDiv = document.createElement('div');
     for(let i=0; i<arr.length; i++){
-        let listItem = document.createElement('li');
-        listItem.textContent = arr[i][0];
-        myDiv.appendChild(listItem);
+        const cardElem = createCardElement(arr[i][0]);
+        container.appendChild(cardElem);
     }
-    myArticle.appendChild(myDiv);
-    section.appendChild(myArticle);
 }
 
 // const createCardElement = (card) => {
