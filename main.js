@@ -26,6 +26,25 @@ let newlines = standardCards.filter(function(item, index){
 });
 console.log(newlines);
 
+const mtg = require('mtgsdk')
+
+// mtg.card.find(3)
+// .then(result => {
+//     console.log(result.card.name) // "Black Lotus"
+// })
+
+// mtg.set.find('AER')
+// .then(result => {
+//     console.log(result.set.name) // "Aether Revolt"
+// })
+mtg.card.where({set : 'RNA'}).then(cards => {
+    console.log(cards[0].foreignNames[4]);
+});
+
+mtg.card.where({set : 'RNA',number : '151'}).then(cards => {
+    console.log(cards);
+});
+
 
 // デッキリストを読み込んでライブラリとサイドボードを作成する
 deckListFile.addEventListener('change', function(evt){
