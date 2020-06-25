@@ -12,7 +12,7 @@ const section = document.querySelector('section');
 
 // jsonでデータ取得
 let path = 'StandardCards.json';
-$.getjson(path, function(json){
+$.getJSON(path, function(json){
     standardCards = json;
     // デッキリストの情報を取得
     
