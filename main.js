@@ -95,6 +95,7 @@ function addSection(arr, section){
 //     return elem;
 // };
 
+// シャッフルボタンが押されたときにライブラリをシャッフルする関数
 document.getElementById('shufful-button').onclick = function(){
     library.shufful();
     console.log(library);
