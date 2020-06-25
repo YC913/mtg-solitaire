@@ -61,6 +61,7 @@ deckListFile.addEventListener('change', function(evt){
     
 },false);
 
+
 function addSection(arr, section){
     let myArticle = document.createElement('article');
     let myList = document.createElement('li');
@@ -93,3 +94,7 @@ function addSection(arr, section){
 
 //     return elem;
 // };
+
+document.getElementById('shufful-button').onclick = function{
+    library.shufful();
+}
