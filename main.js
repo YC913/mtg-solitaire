@@ -13,9 +13,8 @@ const section = document.querySelector('section');
 // jsonでデータ取得
 let url = 'StandardCards.json';
 $.get(url, (data) => {
-    for (let i=0; i<3; i++){
-      console.log(data);
-    }
+    console.log(data);
+    console.log(typeof(data));
 });
 
 // デッキリストを読み込んでライブラリとサイドボードを作成する
