@@ -15,7 +15,7 @@ let path = 'StandardCards.json';
 $.getjson(path, (data) => {
     standardCards = data;
     let newlines = data.filter(function(item, index){
-        if(item.foreignData.name == "苦悶の侍祭"){
+        if(item.printing == ["INV", "PRNA", "RNA"]){
             // console.log(item);
             return true;
         }
