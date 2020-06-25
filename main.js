@@ -6,30 +6,17 @@ let library = [];
 let libraryBase = [];
 let sideboard = [];
 let sideboardBase = [];
+let standardCards = [];
 let hands = [];
 const section = document.querySelector('section');
 
 // jsonでデータ取得
-// // 取得するJSONがあるURLを変数へ代入
-// let requestUrl = 'https://www.mtgjson.com/files/StandardCards.json';
-
-// // XMLHttpRequest から新しいリクエストオブジェクトを作成
-// let request = new XMLHttpRequest();
-
-// console.log(requestUrl);
-
-// // 新しいリクエストを開始
-// request.open('GET', requestURL);
-
-// request.responseType = 'json';  // ブラウザ側で JavaScript オブジェクトへ変換
-// request.send(); // リクエストを送信
-
-// // サーバからのレスポンスを待ち、それを処理するコード
-// request.onload = function() {
-//     let standardCards = request.response;
-//     console.log(StandardCards[0]);
-// }
-
+let url = 'StandardCards.json';
+$.getJSON(url, (data) => {
+    for (let i=0; i<3; i++){
+      console.log(data[i]);
+    }
+});
 
 // デッキリストを読み込んでライブラリとサイドボードを作成する
 deckListFile.addEventListener('change', function(evt){
@@ -64,13 +51,13 @@ deckListFile.addEventListener('change', function(evt){
 
 function addSection(arr, section){
     let myArticle = document.createElement('article');
-    let myList = document.createElement('li');
+    let myDiv = document.createElement('div');
     for(let i=0; i<arr.length; i++){
         let listItem = document.createElement('li');
         listItem.textContent = arr[i][0];
-        myList.appendChild(listItem);
+        myDiv.appendChild(listItem);
     }
-    myArticle.appendChild(myList);
+    myArticle.appendChild(myDiv);
     section.appendChild(myArticle);
 }
 
