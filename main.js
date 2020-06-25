@@ -58,6 +58,18 @@ deckListFile.addEventListener('change', function(evt){
 },false);
 
 
+// カードを表す要素を作成する関数
+const createCardElement = (card_name) => {
+    const elem = document.createElement('div');
+    elem.classList.add('card');
+    
+    const cardLabel = document.createElement('div');
+    cardLabel.innerText = card_name;
+    elem.appendChild(cardLabel);
+  
+    return elem;
+  };
+
 function addCard(arr, container){
     let myDiv = document.createElement('div');
     for(let i=0; i<arr.length; i++){
