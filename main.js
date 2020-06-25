@@ -12,9 +12,9 @@ const section = document.querySelector('section');
 
 // jsonでデータ取得
 let path = 'StandardCards.json';
-$.getjson(path, (data) => {
-    standardCards = data;
-    let newlines = data.filter(function(item, index){
+$.getjson(path, function(json){
+    standardCards = json;
+    let newlines = json.filter(function(item, index){
         if(item.printing == ["INV", "PRNA", "RNA"]){
             // console.log(item);
             return true;
