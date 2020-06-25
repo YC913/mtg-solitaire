@@ -13,8 +13,11 @@ const section = document.querySelector('section');
 // jsonでデータ取得
 let url = 'StandardCards.json';
 $.get(url, (data) => {
-    console.log(data);
+    console.log(data.name["苦悶の侍祭"]);
     console.log(typeof(data));
+    // デッキリストの情報を取得
+    
+    // standardCardsに情報を格納
 });
 
 // デッキリストを読み込んでライブラリとサイドボードを作成する
