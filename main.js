@@ -14,17 +14,18 @@ const section = document.querySelector('section');
 let path = 'StandardCards.json';
 $.getjson(path, function(json){
     standardCards = json;
-    let newlines = json.filter(function(item, index){
-        if(item.printing == ["INV", "PRNA", "RNA"]){
-            // console.log(item);
-            return true;
-        }
-    });
-    console.log(newlines);
     // デッキリストの情報を取得
     
     // standardCardsに情報を格納
 });
+let newlines = standardCards.filter(function(item, index){
+    if(item.printing == ["INV", "PRNA", "RNA"]){
+        // console.log(item);
+        return true;
+    }
+});
+console.log(newlines);
+
 
 // デッキリストを読み込んでライブラリとサイドボードを作成する
 deckListFile.addEventListener('change', function(evt){
