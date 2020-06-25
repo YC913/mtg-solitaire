@@ -12,7 +12,7 @@ const section = document.querySelector('section');
 
 // jsonでデータ取得
 let url = 'StandardCards.json';
-$.getJSON(url, (data) => {
+$.get(url, (data) => {
     for (let i=0; i<3; i++){
       console.log(data[i]);
     }
