@@ -49,9 +49,9 @@ deckListFile.addEventListener('change', function(evt){
         hands = library.draw(7);
         sideboard = new SideBord();
 
-        addSection(hands, handsDiv);
-        addSection(library._library, libraryDiv);
-        addSection(sideboard._sidebord, sideboardDiv);
+        addCard(hands, handsDiv);
+        addCard(library._library, libraryDiv);
+        addCard(sideboard._sidebord, sideboardDiv);
     }
     
     
