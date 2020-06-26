@@ -136,7 +136,7 @@ document.getElementById('probability').onclick = function(){
         let tr = document.createElement("tr");
         let th1 = document.createElement("th");
         let th2 = document.createElement("th");
-        th1.textContent = i;
+        th1.textContent = i + 1;
         th2.textContent = arr[i];
         tr.appendChild(th1);
         tr.appendChild(th2);
