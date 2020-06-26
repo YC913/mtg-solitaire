@@ -34,19 +34,9 @@ function shapeList(defaultList){
     for(let i=0; i < defaultList.length; i++){
         let cardNum = Number(defaultList[i].split(' ')[0]);
         let cardData = defaultList[i].split(' ').slice(1,defaultList.length);
-        /*
-            ここでjsonからカード情報を取得して整形する
-            例
-            {
-                'name' : 'アダントの先兵',
-                'set' : 'XLN',
-                'imageUrl' : 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=436348&type=card',
-
-            }
-        */
         for(let j=0; j < cardNum; j++){
             // カードを追加
-            cardList.push(cardData);
+            cardList.push(cardData[0]);
         }
     }
     return cardList;
