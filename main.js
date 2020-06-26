@@ -71,14 +71,12 @@ function addCard(arr, container){
     }
 }
 
-
 // ライブラリーが押されたときにライブラリからドローする関数
 function draw(){
     hands.push(library.draw(1)[0]); // 手札にカードを1枚追加
     addCard(hands, handsDiv);   // // 手札の描画し直し
     addCard(library._library, libraryDiv);
 }
-
 
 // シャッフルボタンが押されたときにライブラリをシャッフルする関数
 document.getElementById('shufful-button').onclick = function(){
@@ -93,11 +91,6 @@ document.getElementById('reset-button').onclick = function(){
     gameStart();
     mulliganNum = 0;    // マリガン数の初期化
 }
-
-// document.getElementById('my-life').getElementById('plus-button').onclick = function(){
-//     this.textContent += 1;
-// }
-
 
 // マリガンを行うかの確認とマリガンを行う関数
 function mulligan(){
@@ -291,4 +284,6 @@ function gameStart(){
     addCard(field, fieldDiv);
     document.getElementById('my-life').value = 20;
     document.getElementById('enemy-life').value = 20;
+    document.getElementById('input-card-name').value = "";
+    document.getElementById('input-draw-num').value = "";
 }

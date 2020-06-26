@@ -12,10 +12,12 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <!-- <div class="container-fluid"></div> -->
-            <h1>Test</h1>
+            <h1>MTG : 1人回しWEBアプリ</h1>
             <form name='inputDeckList'>
+                <label>MTGアリーナ形式のデッキリストを入力してください。</label><br>
                 <input type='file' id='decklist' value="デッキリストを入力してください" accept=".txt"><br>
             </form>
+            <br>
             <div>
                 <label>自分のライフ</label>
                 <!-- <button class="btn btn-primary" id="minus-button">-1</button>            -->
@@ -32,15 +34,17 @@
             <!-- <button class="btn btn-primary">デッキバランスチェック</button> -->
             <button class="btn btn-primary"　id="mulligan-button" onclick="mulligan()">マリガン or キープ</button>
             <button class="btn btn-danger" id='reset-button'>リセット</button>
-            <div class="col">
+            <div class="col-6">
                 <label>カード名</label>
                 <input type="text" class="form-control" id="input-card-name" placeholder="例：平地">
             </div>
-            <div class="col">
+            <div class="col-6">
                 <label>ドローする枚数</label>
                 <input type="text" class="form-control" id="input-draw-num" placeholder="例：2">
             </div>
-            <button class="btn btn-primary" id="probability">計算</button>
+            <br>
+            <button class="btn btn-primary" id="probability">ライブラリから入力した数だけ引いたときに入力したカードを引く確率を計算</button>
+            <br>
             <table class="table" id="probability-table"></table>
             <button class="btn btn-primary"　id='library-img' onclick="draw()">ドロー</button>
             <h5 id="mulliganMessage">マリガン回数 : 0</h5>
