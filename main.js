@@ -104,7 +104,7 @@ const createCardElement = (card_name) => {
     elem.classList.add('card-block');
     
     const img = document.createElement('img');
-    img.classList.add("card-img-top");
+    img.classList.add("card-img");
 
     let targetCard = cardData.filter(function(item, index){
         if(item.name === card_name){
@@ -116,14 +116,17 @@ const createCardElement = (card_name) => {
     if(img.src === ""){
         img.src = "card-back-side.jpg";
     }
-    
+
     img.alt = card_name;
     elem.appendChild(img);
 
+    const cio = document.createElement('div');
+    cio.classList.add('card-img-overlay')
     const cardLabel = document.createElement('div');
     cardLabel.classList.add('card-title');
     cardLabel.innerText = card_name;
-    elem.appendChild(cardLabel);
+    cio.appendChild(cardLabel);
+    elem.appendChild(cio);
     col.appendChild(elem);
   
     return col;
