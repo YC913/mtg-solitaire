@@ -10,26 +10,22 @@
 
     <body onContextmenu="return false;">
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <div class="container-fluid"></div>
+        <!-- <div class="container-fluid"></div> -->
             <h1>Test</h1>
             <form name='inputDeckList'>
                 <input type='file' id='decklist' value="デッキリストを入力してください" accept=".txt"><br>
             </form>
             <div id='my-life'>
-                <form>
-                    <label>自分のライフ</label>
-                    <button class="btn btn-primary">-</button>           
-                    <input>
-                    <button class="btn btn-primary">+</button>
-                </form>
+                <label>自分のライフ</label>
+                <button class="btn btn-primary">-1</button>           
+                <input style="text-align:right">
+                <button class="btn btn-primary">+1</button>
             </div>
             <div id='enemy-life'>
-                <form>
-                    <label>対戦相手のライフ</label>
-                    <button class="btn btn-primary">-</button>           
-                    <input>
-                    <button class="btn btn-primary">+</button>
-                </form>
+                <label>対戦相手のライフ</label>
+                <button class="btn btn-primary">-1</button>           
+                <input style="text-align:right">
+                <button class="btn btn-primary">+1</button>
             </div>
             <div id="contextmenu">
                 <ul>
@@ -39,7 +35,7 @@
                 </ul>
             </div>
             <button id='shufful-button' class="btn btn-primary">シャッフル</button>
-            <button class="btn btn-primary">デッキバランスチェック</button>
+            <!-- <button class="btn btn-primary">デッキバランスチェック</button> -->
             <button class="btn btn-primary"　id="mulligan" onclick="mulligan()">マリガン</button>
             <button class="btn btn-primary"　id="sidebord">サイドボード</button>
             <button class="btn btn-danger" id='reset-button'>リセット</button>
@@ -66,13 +62,13 @@
                 フィールド
             </h2>
             <div class="container-fluid">
-                <div class="row flex-row flex-nowrap" id='field'></div>
+                <div class="row flex-nowrap" id='field'></div>
             </div>
             <h2>
                 手札
             </h2>
             <div class="container-fluid">
-                <div class="row flex-row flex-nowrap" id='hands'></div>
+                <div class="row flex-nowrap" id='hands'></div>
             </div>
             <h2>
                 ライブラリーの中身
@@ -98,7 +94,7 @@
             <div class="container-fluid">
                 <div class="row flex-row flex-nowrap" id='exile'></div>
             </div>
-        <div class="container-fluid bg-info">
+        <!-- <div class="container-fluid bg-info"> -->
         <script src='mtg.js'></script> 
         <script src='main.js'></script>
     </body>
