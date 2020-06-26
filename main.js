@@ -8,9 +8,14 @@ let libraryBase = [];
 let field = []
 let fieldDiv = document.getElementById('field');
 let lands = []
+let landsDiv = document.getElementById('lands');
+let libraryBottom = []
+let libraryBottomDiv = document.getElementById('library-bottom');
 let sideboard = [];
 let sideboardBase = [];
 let standardCards = [];
+let stack = []
+let stackDiv = document.getElementById('stack');
 let hands = [];
 let graveyard = []; // 墓地のカード
 let graveyardDiv = document.getElementById('graveyard');
@@ -47,10 +52,10 @@ const createCardList = (card_name) => {
     const cl = document.createElement('li');
     cl.classList.add('ui-state-default');
     cl.classList.add('card-name');
+    cl.setAttribute('onclick', "reloadArea()");
     cl.textContent = card_name;
     return cl;
 };
-
 
 // カード要素を追加する関数
 function addCard(arr, container){
@@ -77,12 +82,14 @@ function draw(){
 
 // シャッフルボタンが押されたときにライブラリをシャッフルする関数
 document.getElementById('shufful-button').onclick = function(){
+    reloadArea();   // 最新の状態にする
     library.shufful();
     addCard(library._library, libraryDiv);  // ライブラリーの描画し直し
 }
 
 // リセットボタンが押されたときに新しくゲームを開始したときの状態にする
 document.getElementById('reset-button').onclick = function(){
+    reloadArea();   // 念のため最新の状態にする
     gameStart();
     mulliganNum = 0;    // マリガン数の初期化
 }
@@ -94,24 +101,54 @@ document.getElementById('reset-button').onclick = function(){
 
 // マリガンを行うかの確認とマリガンを行う関数
 function mulligan(){
+    let elm = document.getElementById("mulliganMessage");
     let result = window.confirm('マリガンしますか？');
     if(result){
         mulliganNum += 1;   // マリガン数をカウント
+        elm.textContent = "マリガン回数 : " + mulliganNum;
         gameStart();
         console.log('マリガンしました');
     }
     else if(mulliganNum > 0){
-        // マリガンボタンを押せなくする
-        
-        // mulliganNum枚だけデッキボトムに戻してと表示する
+        console.log(elm)
+        elm.textContent = "手札から" + mulliganNum + "枚選んでデッキボトムにおいてください。"
         
     }
     else{
-        // マリガンボタンを押せなくする
-        const button = document.getElementById('mulligan');
-        console.log(button);
-        button.disabled = true;
         console.log('キープしました');
+    }
+}
+
+
+// 確率を計算するボタンが押されたときに呼び出され、確率をテーブルに追加する関数
+document.getElementById('probability').onclick = function(){
+    reloadArea();   // 最新の状態を読み込む
+    inputCardName = document.getElementById('input-card-name').value;
+    inputDrawNum = document.getElementById('input-draw-num').value;
+    arr = clcProbability(inputCardName, inputDrawNum);
+    const proTab = document.getElementById("probability-table");
+    let cap = document.createElement("caption");
+    cap.textContent = "ライブラリーから" + arr.length + "枚引いたときに" + inputCardName + "を引く確率";
+    proTab.appendChild(cap);
+    let tr = document.createElement("tr");
+    let th1 = document.createElement("th");
+    let th2 = document.createElement("th");
+    th1.textContent = "枚";
+    th2.textContent = "確率";
+    tr.appendChild(th1);
+    tr.appendChild(th2);
+    proTab.appendChild(tr);
+    
+    for(let i=0; i < arr.length; i++){
+        let tr = document.createElement("tr");
+        let th1 = document.createElement("th");
+        let th2 = document.createElement("th");
+        th1.textContent = i;
+        th2.textContent = arr[i];
+        tr.appendChild(th1);
+        tr.appendChild(th2);
+        console.log(tr);
+        proTab.appendChild(tr);
     }
 }
 
@@ -139,13 +176,16 @@ function conbination(n, k){
     }
 }
 
-// name(カードの名前),dorawNum(ドローする枚数)を受け取り、nameを引く確率を求める
+
+
+
+// name(カードの名前),dorawNum(ドローする枚数)を受け取り、nameを引く確率を求める関数
 function clcProbability(name, dorawNum){
     proArr = [] // 確率の配列
     let count = 0;  // デッキの中にnameが存在するか調べる
     let deckLength = library._library.length;   // デッキの枚数
     for(let i=0; i<deckLength; i++){
-        if(library._library[i][0]===name){
+        if(library._library[i]===name){
             count += 1;
         }
     }
@@ -153,7 +193,7 @@ function clcProbability(name, dorawNum){
     // デッキにnameが存在しないとき
     if(count === 0){
         for(let i=1; i<=dorawNum;i++){
-            proArr.push([i,0]);
+            proArr.push([0]);
         }
     }
     else{
@@ -165,39 +205,16 @@ function clcProbability(name, dorawNum){
             let otherCon = conbination(conbination(deckLength - count, dorawNum - i));
             let allCon = conbination(deckLength,i);
             console.log((targetCon * otherCon) / allCon)
-            proArr.push([i, (targetCon * otherCon) / allCon]);
+            proArr.push([(targetCon * otherCon) / allCon]);
         }
     }
     return proArr;
-    
-    // 1枚〜drawNumまでの各ドローにおける確率を求める
-    
-}
-
-
-
-// デッキの1番上にカードを置く関数
-function putDeckTop(card){
-    library._library.unshift(card);
-    addCard(library._library, libraryDiv);  // ライブラリの描画し直し
 }
 
 // デッキの1番下にカードを置く関数
 function putDeckBottom(card){
     library._library.push(card);
     addCard(library._library, libraryDiv);  // ライブラリの描画し直し
-}
-
-// 墓地にカードを置く関数
-function putGraveyard(card){
-    graveyard.push(card);
-    addCard(graveyard, graveyardDiv);
-}
-
-// 追放領域にカードを置く関数
-function putExile(card){
-    exile.push(card);
-    addCard(exile, exileDiv);
 }
 
 // 複数のリストの境界を越え、ドラッグ＆ドロップで並べ替えをする関数
@@ -211,24 +228,46 @@ $( function() {
 // 各領域を再読み込みする関数
 function reloadArea(){
     // フィールド
-    field = []
+    field = readArea(fieldDiv, field);
+
+    // 土地
+    lands = readArea(landsDiv, lands)
 
     // 手札
-    hands = []
-    for(let i=1; i<handsDiv.children.length; i++){
-        console.log(handsDiv.children[i].textContent);
-        hands.push(handsDiv.children[i].textContent);
+    hands = readArea(handsDiv, hands);
+
+    // ライブラリーボトム
+    // ここにカードが存在する場合、ライブラリーへ移動させる
+    libraryBottom = readArea(libraryBottomDiv, library);
+    while(libraryBottom.length > 0){
+        const cardList = createCardList(libraryBottom.pop());
+        libraryDiv.appendChild(cardList);
+        // libraryBottomDiv.removeChild(libraryBottomDiv.lastChild);
     }
+    addCard(libraryBottom, libraryBottomDiv);
+
+    // ライブラリー
+    library._library = readArea(libraryDiv, library._library);
+
+    // 墓地
+    graveyard = readArea(graveyardDiv, graveyard);
+
+    // 追放
+    exile = readArea(exileDiv, exile);
+
+    // サイドボード
+    sideboard = readArea(sideboardDiv, sidebord);
+
 }
 
 // 指定された領域のデータを読み込んで領域の変数に格納する関数
-// function readArea(elm, area){
-//     area = [];
-//     console.log(handsDiv.children[i].textContent);
-//     for(let i=1; i<elm.children.length; i++){
-//         area.push(elm.children[i].textContent);
-//     }
-// }
+function readArea(elm, area){
+    area = [];
+    for(let i=1; i<elm.children.length; i++){
+        area.push(elm.children[i].textContent);
+    }
+    return area;
+}
 
 // 開始時のライブラリ、手札、サイドボードを定義
 function gameStart(){
@@ -236,11 +275,20 @@ function gameStart(){
     console.log(library);
     hands = library.draw(7);
     sideboard = new SideBord();
-    graveyard = []
-    exile = []
+    field = [];
+    lands = [];
+    graveyard = [];
+    stack = [];
+    exile = [];
+    libraryBottom = []
     addCard(hands, handsDiv);
     addCard(library._library, libraryDiv);
     addCard(sideboard._sidebord, sideboardDiv);
-    addCard(graveyard, graveyardDiv)
+    addCard(graveyard, graveyardDiv);
     addCard(exile, exileDiv)
+    addCard(stack, stackDiv);
+    addCard(lands, landsDiv);
+    addCard(field, fieldDiv);
+    document.getElementById('my-life').value = 20;
+    document.getElementById('enemy-life').value = 20;
 }

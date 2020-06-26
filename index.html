@@ -16,41 +16,45 @@
             <form name='inputDeckList'>
                 <input type='file' id='decklist' value="デッキリストを入力してください" accept=".txt"><br>
             </form>
-            <div id='my-life'>
+            <div>
                 <label>自分のライフ</label>
                 <!-- <button class="btn btn-primary" id="minus-button">-1</button>            -->
-                <input style="text-align:right" value="20">
+                <input id='my-life' style="text-align:right" value="20">
                 <!-- <button class="btn btn-primary" id="plus-button">+1</button> -->
             </div>
-            <div id='enemy-life'>
+            <div>
                 <label>対戦相手のライフ</label>
                 <!-- <button class="btn btn-primary" id="minus-button">-1</button>            -->
-                <input style="text-align:right" value="20">
+                <input id='enemy-life' style="text-align:right" value="20">
                 <!-- <button class="btn btn-primary" id="plus-button">+1</button> -->
             </div>
             <button id='shufful-button' class="btn btn-primary">シャッフル</button>
             <!-- <button class="btn btn-primary">デッキバランスチェック</button> -->
-            <button class="btn btn-primary"　id="mulligan-button" onclick="mulligan()">マリガン</button>
+            <button class="btn btn-primary"　id="mulligan-button" onclick="mulligan()">マリガン or キープ</button>
             <button class="btn btn-danger" id='reset-button'>リセット</button>
             <div class="col">
                 <label>カード名</label>
-                <input type="text" class="form-control" placeholder="例：平地">
+                <input type="text" class="form-control" id="input-card-name" placeholder="例：平地">
             </div>
             <div class="col">
                 <label>ドローする枚数</label>
-                <input type="text" class="form-control" placeholder="例：2">
+                <input type="text" class="form-control" id="input-draw-num" placeholder="例：2">
             </div>
-            <button class="btn btn-primary">計算</button>
+            <button class="btn btn-primary" id="probability">計算</button>
+            <table class="table" id="probability-table"></table>
             <button class="btn btn-primary"　id='library-img' onclick="draw()">ドロー</button>
-            <h5>マリガン処理として手札からカードをn枚ライブラリーボトムに移動させてください。</h5>
+            <h5 id="mulliganMessage">マリガン回数 : 0</h5>
+            <ul class="jquery-ui-sortable" id='stack'>
+                <li class="ui-state-default border-color-green">スタック</li>
+            </ul>
             <ul class="jquery-ui-sortable" id='field'>
-                    <li class="ui-state-default border-color-red">フィールド</li>
+                    <li class="ui-state-default border-color-green">フィールド</li>
             </ul>
             <ul class="jquery-ui-sortable" id='lands'>
-                    <li class="ui-state-default border-color-red">土地</li>
+                    <li class="ui-state-default border-color-green">土地</li>
             </ul>
             <ul class="jquery-ui-sortable" id='hands'>
-                    <li class="ui-state-default border-color-red">手札</li>
+                    <li class="ui-state-default border-color-green">手札</li>
             </ul>
             <ul class="jquery-ui-sortable" id='library'>
                 <li class="ui-state-default stop">ライブラリー</li>
