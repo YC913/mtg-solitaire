@@ -4,37 +4,101 @@
         <meta charset='UTF-8'>
         <title>MTG-Solitaire</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"d></script>
     </head>
 
-    <body>
+    <body onContextmenu="return false;">
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <h1>Test</h1>
-        <form name='inputDeckList'>
-            <input type='file' id='decklist'><br>
-        </form>
-        <img src="card-back-side.jpg">
-        <button id='shufful-button'>シャッフル</button>
-        <button id='reset-button'>リセット</button>
-        <button>あるカードを引く確率</button>
-        <button>デッキバランスチェック</button>
-        <section>
-            <div class="card-group" id='hands'>
-                <h2>
-                    手札
-                </h2>
+        <div class="container-fluid"></div>
+            <h1>Test</h1>
+            <form name='inputDeckList'>
+                <input type='file' id='decklist' value="デッキリストを入力してください" accept=".txt"><br>
+            </form>
+            <div id='my-life'>
+                <form>
+                    <label>自分のライフ</label>
+                    <button class="btn btn-primary">-</button>           
+                    <input>
+                    <button class="btn btn-primary">+</button>
+                </form>
             </div>
-            <div class="card-group"  id='library'>
+            <div id='enemy-life'>
+                <form>
+                    <label>対戦相手のライフ</label>
+                    <button class="btn btn-primary">-</button>           
+                    <input>
+                    <button class="btn btn-primary">+</button>
+                </form>
+            </div>
+            <div id="contextmenu">
+                <ul>
+                    <li onClick="menu1()">1.Google</li>
+                    <li onClick="menu2()">2.Yahoo!</li>
+                    <li onClick="menu3()">3.Amazon</li>
+                </ul>
+            </div>
+            <button id='shufful-button' class="btn btn-primary">シャッフル</button>
+            <button class="btn btn-primary">デッキバランスチェック</button>
+            <button class="btn btn-primary"　id="mulligan" onclick="mulligan()">マリガン</button>
+            <button class="btn btn-primary"　id="sidebord">サイドボード</button>
+            <button class="btn btn-danger" id='reset-button'>リセット</button>
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <label>カード名</label>
+                        <input type="text" class="form-control" placeholder="例：平地">
+                    </div>
+                    <div class="col">
+                        <label>ドローする枚数</label>
+                        <input type="text" class="form-control" placeholder="例：2">
+                    </div>
+                </div>
+                <button class="btn btn-primary">計算</button>
+            </form>
+            <div>
                 <h2>
                     ライブラリー
                 </h2>
+                <img id='library-img' src="card-back-side.jpg">
             </div>
-            <div class="card-group"  id='sidebord'>
-                <h2>
-                    サイドボード
-                </h2>
+            <h2>
+                フィールド
+            </h2>
+            <div class="container-fluid">
+                <div class="row flex-row flex-nowrap" id='field'></div>
             </div>
-        </section>
-
+            <h2>
+                手札
+            </h2>
+            <div class="container-fluid">
+                <div class="row flex-row flex-nowrap" id='hands'></div>
+            </div>
+            <h2>
+                ライブラリーの中身
+            </h2>
+            <div class="container-fluid">
+                <div class="row flex-row flex-nowrap"  id='library'></div>
+            </div>
+            <h2>
+                サイドボード
+            </h2>
+            <div class="container-fluid">
+                <div class="row flex-row flex-nowrap"  id='sidebord'></div>
+            </div>
+            <h2>
+                墓地
+            </h2>
+            <div class="container-fluid">
+                <div class="row flex-row flex-nowrap" id='graveyard'></div>
+            </div>
+            <h2>
+                追放
+            </h2>
+            <div class="container-fluid">
+                <div class="row flex-row flex-nowrap" id='exile'></div>
+            </div>
+        <div class="container-fluid bg-info">
         <script src='mtg.js'></script> 
         <script src='main.js'></script>
     </body>
