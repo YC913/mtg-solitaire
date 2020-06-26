@@ -8,8 +8,9 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"d></script>
     </head>
 
-    <body onContextmenu="return false;">
+    <body>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <!-- <div class="container-fluid"></div> -->
             <h1>Test</h1>
             <form name='inputDeckList'>
@@ -18,82 +19,58 @@
             <div id='my-life'>
                 <label>自分のライフ</label>
                 <button class="btn btn-primary">-1</button>           
-                <input style="text-align:right">
+                <input style="text-align:right" value="20">
                 <button class="btn btn-primary">+1</button>
             </div>
             <div id='enemy-life'>
                 <label>対戦相手のライフ</label>
                 <button class="btn btn-primary">-1</button>           
-                <input style="text-align:right">
+                <input style="text-align:right" value="20">
                 <button class="btn btn-primary">+1</button>
-            </div>
-            <div id="contextmenu">
-                <ul>
-                    <li onClick="menu1()">1.Google</li>
-                    <li onClick="menu2()">2.Yahoo!</li>
-                    <li onClick="menu3()">3.Amazon</li>
-                </ul>
             </div>
             <button id='shufful-button' class="btn btn-primary">シャッフル</button>
             <!-- <button class="btn btn-primary">デッキバランスチェック</button> -->
-            <button class="btn btn-primary"　id="mulligan" onclick="mulligan()">マリガン</button>
+            <button class="btn btn-primary"　id="mulligan-button">マリガン</button>
             <button class="btn btn-primary"　id="sidebord">サイドボード</button>
             <button class="btn btn-danger" id='reset-button'>リセット</button>
-            <form>
-                <div class="form-row">
-                    <div class="col">
-                        <label>カード名</label>
-                        <input type="text" class="form-control" placeholder="例：平地">
-                    </div>
-                    <div class="col">
-                        <label>ドローする枚数</label>
-                        <input type="text" class="form-control" placeholder="例：2">
-                    </div>
-                </div>
-                <button class="btn btn-primary">計算</button>
-            </form>
-            <div>
-                <h2>
-                    ライブラリー
-                </h2>
-                <img id='library-img' src="card-back-side.jpg">
+            <div class="col">
+                <label>カード名</label>
+                <input type="text" class="form-control" placeholder="例：平地">
             </div>
-            <h2>
-                フィールド
-            </h2>
-            <div class="container-fluid">
-                <div class="row flex-nowrap" id='field'></div>
+            <div class="col">
+                <label>ドローする枚数</label>
+                <input type="text" class="form-control" placeholder="例：2">
             </div>
-            <h2>
-                手札
-            </h2>
-            <div class="container-fluid">
-                <div class="row flex-nowrap" id='hands'></div>
-            </div>
-            <h2>
-                ライブラリーの中身
-            </h2>
-            <div class="container-fluid">
-                <div class="row flex-row flex-nowrap"  id='library'></div>
-            </div>
-            <h2>
-                サイドボード
-            </h2>
-            <div class="container-fluid">
-                <div class="row flex-row flex-nowrap"  id='sidebord'></div>
-            </div>
-            <h2>
-                墓地
-            </h2>
-            <div class="container-fluid">
-                <div class="row flex-row flex-nowrap" id='graveyard'></div>
-            </div>
-            <h2>
-                追放
-            </h2>
-            <div class="container-fluid">
-                <div class="row flex-row flex-nowrap" id='exile'></div>
-            </div>
+            <button class="btn btn-primary">計算</button>
+            <button class="btn btn-primary"　id='library-img' onclick="draw()">ドロー</button>
+            <h5>マリガン処理として手札からカードをn枚ライブラリーボトムに移動させてください。</h5>
+            <ul class="jquery-ui-sortable" id='field'>
+                    <li class="ui-state-default border-color-red">フィールド</li>
+            </ul>
+            <ul class="jquery-ui-sortable" id='lands'>
+                    <li class="ui-state-default border-color-red">土地</li>
+            </ul>
+            <ul class="jquery-ui-sortable" id='hands'>
+                    <li class="ui-state-default border-color-red">手札</li>
+            </ul>
+            <ul class="jquery-ui-sortable" id='library'>
+                <li class="ui-state-default stop">ライブラリー</li>
+            </ul>
+            <ul class="jquery-ui-sortable" id='library-bottom'>
+                <li class="ui-state-default border-color-green">ライブラリーボトム</li>
+            </ul>
+            <br>
+            <ul class="jquery-ui-sortable" id='graveyard'>
+                <li class="ui-state-default border-color-green">墓地</li>
+            </ul>
+            <ul class="jquery-ui-sortable" id='exile'>
+                <li class="ui-state-default border-color-green">追放</li>
+            </ul>
+            <ul class="jquery-ui-sortable" id='sidebord'>
+                <li class="ui-state-default border-color-green">サイドボード</li>
+            </ul>
+            <div style="clear: both;"></div>
+        </div>
         <!-- <div class="container-fluid bg-info"> -->
         <script src='mtg.js'></script> 
         <script src='main.js'></script>

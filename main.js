@@ -15,52 +15,6 @@ let exile = []; // 追放領域のカード
 let exileDiv = document.getElementById('exile');
 const section = document.querySelector('section');
 let mulliganNum = 0;    // マリガンした回数
-let cardData = []    // カードの画像のリンクなど、カードの情報が入っているオブジェクトの配列
-cardData = [
-    {
-        name : "ドビンの拒否権",
-        img_path : "https://mtg-jp.com//img_sys/cardImages/WAR/462440/cardimage.png"
-    }
-];
-
-// // jsonでデータ取得
-// let path = 'StandardCards.json';
-// $.getJSON(path, function(json){
-//     standardCards = json;
-//     // デッキリストの情報を取得
-    
-//     // standardCardsに情報を格納
-// });
-// let newlines = standardCards.filter(function(item, index){
-//     if(item.printing == ["INV", "PRNA", "RNA"]){
-//         // console.log(item);
-//         return true;
-//     }
-// });
-// console.log(newlines);
-
-// Magic: The Gathering SDKを使ってカード情報を取得
-// set, numberで絞り込む
-// 画像は日本語のものを使用する
-// const mtg = require('mtgsdk')
-
-// // mtg.card.find(3)
-// // .then(result => {
-// //     console.log(result.card.name) // "Black Lotus"
-// // })
-
-// // mtg.set.find('AER')
-// // .then(result => {
-// //     console.log(result.set.name) // "Aether Revolt"
-// // })
-// mtg.card.where({set : 'RNA'}).then(cards => {
-//     console.log(cards[0].foreignNames[4]);
-// });
-
-// mtg.card.where({set : 'RNA',number : '151'}).then(cards => {
-//     console.log(cards);
-// });
-
 
 // デッキリストを読み込んでライブラリとサイドボードを作成する
 deckListFile.addEventListener('change', function(evt){
@@ -80,91 +34,38 @@ deckListFile.addEventListener('change', function(evt){
         sideboardBase = shapeList(deckList.slice(deckList.indexOf('サイドボード') + 1));
 
         // ゲーム開始の処理
-        // library = new Library();
-        // hands = library.draw(7);
-        // sideboard = new SideBord();
-
-        // addCard(hands, handsDiv);
-        // addCard(library._library, libraryDiv);
-        // addCard(sideboard._sidebord, sideboardDiv);
         gameStart();
     }
-    
-    
 },false);
 
 
-// カードを表す要素を作成する関数
-const createCardElement = (card_name) => {
-    const col = document.createElement('div');
-    col.classList.add('col-1');
-    
-    const elem = document.createElement('div');
-    elem.classList.add('card');
-    elem.classList.add('card-block');
-    
-    const img = document.createElement('img');
-    img.classList.add("card-img");
+// カードの名前をもつリストを作成
+const createCardList = (card_name) => {
+    const cl = document.createElement('li');
+    cl.classList.add('ui-state-default');
+    cl.classList.add('card-name');
+    cl.textContent = card_name;
+    return cl;
+};
 
-    let targetCard = cardData.filter(function(item, index){
-        if(item.name === card_name){
-            img.src = item.img_path;
-        } return true;
-    });
-    
-    // console.log(targetCard);
-    if(img.src === ""){
-        img.src = "card-back-side.jpg";
-    }
-
-    img.alt = card_name;
-    elem.appendChild(img);
-
-    const cio = document.createElement('div');
-    cio.classList.add('card-img-overlay')
-    const cardLabel = document.createElement('div');
-    cardLabel.classList.add('card-title');
-    cardLabel.innerText = card_name;
-    cio.appendChild(cardLabel);
-    elem.appendChild(cio);
-    col.appendChild(elem);
-  
-    return col;
-  };
 
 // カード要素を追加する関数
 function addCard(arr, container){
-    container.innerHTML = '';    // 子要素の初期化
-    let myDiv = document.createElement('div');
+    // 最初のリスト（ラベルになっている）を除いて全てのカード部分だけ初期化する
+    while(container.children.length > 1){
+        container.removeChild(container.lastChild);
+    }
+
+    // container.innerHTML = '';    // 子要素の初期化
     for(let i=0; i<arr.length; i++){
-        const cardElem = createCardElement(arr[i][0]);
-        container.appendChild(cardElem);
+        const cardList = createCardList(arr[i][0]);
+        container.appendChild(cardList);
     }
 }
 
-// const createCardElement = (card) => {
-//     const elem = document.createElement('div');
-//     elem.classList.add('card');
-
-//     // 「アダントの先兵」のような表示を作る
-//     const cardLabel = document.createElement('div');
-//     cardLabel.innerText = `${card.suit || ''}${card.label}`;
-//     elem.appendChild(cardLabel);
-
-//     // isHoldフラグがあれば、「HOLD」表示を追加し、
-//     // 要素にholdクラスを追加する
-//     if(card.isHold) {
-//         const holdIndicator = document.createElement('div');
-//         holdIndicator.innerText = 'HOLD';
-//         elem.appendChild(holdIndicator);
-//         elem.classList.add('hold');
-//     }
-
-//     return elem;
-// };
 
 // ライブラリーが押されたときにライブラリからドローする関数
-libraryImgDiv.onclick = function(){
+function draw(){
     hands.push(library.draw(1)[0]); // 手札にカードを1枚追加
     addCard(hands, handsDiv);   // // 手札の描画し直し
     addCard(library._library, libraryDiv);
@@ -183,33 +84,31 @@ document.getElementById('reset-button').onclick = function(){
     mulliganNum = 0;    // マリガン数の初期化
 }
 
-// 右クリックされたときの処理
+// マリガンを行うかの確認とマリガンを行う関数
 window.onload = function(){
-    const cardsNodeList = document.getElementsByClassName("card");
-    for(let i=0; i < cardsNodeList; i++){
-        cardsNodeList[i].addEventListener('contextmenu',function (e){
-            //マウスの位置をstyleへ設定（左上の開始位置を指定）
-            document.getElementById('contextmenu').style.left=e.pageX+"px";
-            document.getElementById('contextmenu').style.top=e.pageY+"px";
-            //メニューをblockで表示させる
-            document.getElementById('contextmenu').style.display="block";
-        });
+    console.log(document.getElementById('mulligan-button'));
+    document.getElementById('mulligan-button').onclick = function(){
+        let result = window.confirm('マリガンしますか？');
+        if(result){
+            mulliganNum += 1;   // マリガン数をカウント
+            gameStart();
+            console.log('マリガンしました');
+        }
+        else if(mulliganNum > 0){
+            // マリガンボタンを押せなくする
+            
+            // mulliganNum枚だけデッキボトムに戻してと表示する
+            
+        }
+        else{
+            // マリガンボタンを押せなくする
+            const button = document.getElementById('mulligan');
+            console.log(button);
+            button.disabled = true;
+            console.log('キープしました');
+        }
     }
-    document.body.addEventListener('click',function (e){
-        //メニューをnoneで非表示にさせる
-        document.getElementById('contextmenu').style.display="none";
-    });
-}
-function menu1(){
-open( "https://www.google.com/", "_blank" ) ;
-}
-function menu2(){
-open( "https://www.yahoo.co.jp/", "_blank" ) ;
-}
-function menu3(){
-open( "https://www.amazon.co.jp/", "_blank" ) ;
-}
-
+};
 
 // nCkのコンビネーションの計算をする関数
 function conbination(n, k){
@@ -271,24 +170,6 @@ function clcProbability(name, dorawNum){
 }
 
 
-// マリガンを行うかの確認とマリガンを行う関数
-function mulligan(){
-    let result = window.confirm('マリガンしますか？');
-    if(result){
-        mulliganNum += 1;   // マリガン数をカウント
-        gameStart();
-        console.log('マリガンしました');
-    }
-    else if(mulliganNum > 0){
-        // 何枚デッキの下に戻すか選ぶ
-
-        mulliganNum = 0;    // マリガン数の初期化
-    }
-    else{
-        console.log('キープしました');
-    }
-}
-
 
 // デッキの1番上にカードを置く関数
 function putDeckTop(card){
@@ -313,6 +194,14 @@ function putExile(card){
     exile.push(card);
     addCard(exile, exileDiv);
 }
+
+// 複数のリストの境界を越え、ドラッグ＆ドロップで並べ替えをする関数
+$( function() {
+    $( '.jquery-ui-sortable' ) . sortable( {
+        connectWith: '.jquery-ui-sortable'
+    } );
+    $( '.jquery-ui-sortable' ) . disableSelection();
+} );
 
 // 開始時のライブラリ、手札、サイドボードを定義
 function gameStart(){
