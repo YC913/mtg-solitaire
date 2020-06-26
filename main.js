@@ -5,6 +5,9 @@ let libraryImgDiv = document.getElementById('library-img');
 let sideboardDiv = document.getElementById('sidebord');
 let library = [];
 let libraryBase = [];
+let field = []
+let fieldDiv = document.getElementById('field');
+let lands = []
 let sideboard = [];
 let sideboardBase = [];
 let standardCards = [];
@@ -58,7 +61,7 @@ function addCard(arr, container){
 
     // container.innerHTML = '';    // 子要素の初期化
     for(let i=0; i<arr.length; i++){
-        const cardList = createCardList(arr[i][0]);
+        const cardList = createCardList(arr[i]);
         container.appendChild(cardList);
     }
 }
@@ -84,31 +87,33 @@ document.getElementById('reset-button').onclick = function(){
     mulliganNum = 0;    // マリガン数の初期化
 }
 
+// document.getElementById('my-life').getElementById('plus-button').onclick = function(){
+//     this.textContent += 1;
+// }
+
+
 // マリガンを行うかの確認とマリガンを行う関数
-window.onload = function(){
-    console.log(document.getElementById('mulligan-button'));
-    document.getElementById('mulligan-button').onclick = function(){
-        let result = window.confirm('マリガンしますか？');
-        if(result){
-            mulliganNum += 1;   // マリガン数をカウント
-            gameStart();
-            console.log('マリガンしました');
-        }
-        else if(mulliganNum > 0){
-            // マリガンボタンを押せなくする
-            
-            // mulliganNum枚だけデッキボトムに戻してと表示する
-            
-        }
-        else{
-            // マリガンボタンを押せなくする
-            const button = document.getElementById('mulligan');
-            console.log(button);
-            button.disabled = true;
-            console.log('キープしました');
-        }
+function mulligan(){
+    let result = window.confirm('マリガンしますか？');
+    if(result){
+        mulliganNum += 1;   // マリガン数をカウント
+        gameStart();
+        console.log('マリガンしました');
     }
-};
+    else if(mulliganNum > 0){
+        // マリガンボタンを押せなくする
+        
+        // mulliganNum枚だけデッキボトムに戻してと表示する
+        
+    }
+    else{
+        // マリガンボタンを押せなくする
+        const button = document.getElementById('mulligan');
+        console.log(button);
+        button.disabled = true;
+        console.log('キープしました');
+    }
+}
 
 // nCkのコンビネーションの計算をする関数
 function conbination(n, k){
@@ -202,6 +207,28 @@ $( function() {
     } );
     $( '.jquery-ui-sortable' ) . disableSelection();
 } );
+
+// 各領域を再読み込みする関数
+function reloadArea(){
+    // フィールド
+    field = []
+
+    // 手札
+    hands = []
+    for(let i=1; i<handsDiv.children.length; i++){
+        console.log(handsDiv.children[i].textContent);
+        hands.push(handsDiv.children[i].textContent);
+    }
+}
+
+// 指定された領域のデータを読み込んで領域の変数に格納する関数
+// function readArea(elm, area){
+//     area = [];
+//     console.log(handsDiv.children[i].textContent);
+//     for(let i=1; i<elm.children.length; i++){
+//         area.push(elm.children[i].textContent);
+//     }
+// }
 
 // 開始時のライブラリ、手札、サイドボードを定義
 function gameStart(){
